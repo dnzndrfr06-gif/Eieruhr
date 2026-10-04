@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+
+    <style> 
+        .background {background-color: #793D00}
+        .timer {display: flex;
+        justify-content: center;
+        font-size: 120px;
+        margin-top: 80px;
+        color: #262626;
+        font-family: Arial, Helvetica, sans-serif;
+        }
+        .menu{margin-top: 20px;
+            margin-left: 20px;
+            margin-left:20px        }
+        .menu img{width: 50px;
+        height:auto}
+        .ei{display: flex;
+            justify-content:center;
+            margin-top: 100px;}
+        .ei img{width:180px;
+        height:auto}
+        .start{display:flex;
+        justify-content: center;
+        margin-top:80px}
+        .start img{width:150px;
+        height:auto}
+    
+    
+    </style>
+    <script>
+        let alarm = new Audio ('alarm.wav');
+        let timerStarted = false;
+
+        function startTimer(){
+            if (!timerStarted){
+            let startTime = new Date().getTime();
+            let fiveMinutes = 1000 * 5;
+            let endTimer = startTime + fiveMinutes;
+            
+            setInterval(function() {
+                let timeLeft = endTimer - new Date().getTime();
+                if (timeLeft > 0) {
+                let minutes = timeLeft / (1000*60);
+                minutes = Math.floor (minutes);
+                let seconds = (timeLeft/1000) % 60; // % ist der Modulu Operator: Nicht das Ergebnis, sondern der Rest, der übrig bleibt --> Sekunden, die übrig bleiben, wenn man eine von 60 abzieht
+                seconds = Math.round(seconds);
+                seconds = ('0' + seconds).slice(-2); // wenn die Sekunden unter 10 sind, wird eine Null eingefügt, also 09, 08 etc.
+                let text = "0" + minutes + " : " + seconds;
+                timer.innerHTML = text; // Es wird der Timer aus dem HTML Teil mit dem JavaScript aus dem CSS Teil verknüpft, damit Text etc. genutzt werden kann
+                } else {
+                alarm.play();
+                timer.innerHTML = "00 : 00"};
+                        },1000);}
+                    timerStarted = true;}
+
+        
+    </script>
+
+</head>
+<body class = "background"> 
+    <div class = "menu"> 
+        <img src="img/menu.png"> </div>
+    <div class = "ei"> 
+        <img src="img/ei.png"> </div>
+    <div class = "timer" id="timer">
+        05:00</div>
+    <div class = "start"> 
+        <img onclick="startTimer()" src="img/start.png"> </div>
+</body>
+</html>
